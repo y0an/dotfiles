@@ -1,8 +1,11 @@
+
+# {{ generated_file }}
+
 [alias]
-	lol = log --abbrev-commit --graph --all --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\"
-	ls = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate
-	ll = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate --numstat
-	lds = log --color --graph --pretty=format:'%Cred%h% %ad%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate --date=short
+    lol = log --abbrev-commit --graph --all --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\"
+    ls = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate
+    ll = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate --numstat
+    lds = log --color --graph --pretty=format:'%Cred%h% %ad%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate --date=short
 	
     st = status
     co = checkout
@@ -53,8 +56,12 @@
     #Lors d'un git pull, utilise un rebase plutot qu'un merge
     #cela evite de polluer l'historique avec des commits de merge entre les branches locales et les branches distantes
     autosetuprebase = always
+[core]
+    excludesfile = ~/.gitignore_global
+[github]
+    user = {{ git_user }}
 [user]
-	name = y0an
-	email = yoan.rousseau@zenika.com
+    name = {{ full_name }}
+    email = {{ git_email }}
 [credential]
-	helper = cache --timeout=3600
+    helper = cache --timeout=3600

@@ -1,20 +1,31 @@
 ---
 
-- set_fact: files_absolute_path="{{ role_path }}/files"
+- set_fact: dotfiles_role_dir="{{ dotfiles_home }}/{{ role_path | basename }}"
 
+- file: path={{ dotfiles_role_dir }} state=directory mode=0755
 
-- name: Link global gitignore file
+- name: Copy gitignore_global file
+  template:
+    src: "gitignore_global.j2"
+    dest: "{{ dotfiles_role_dir }}/gitignore_global"
+    mode: 0444
+
+- name: Link gitignore_global file to dotfile
   file:
-    src: "{{ files_absolute_path }}/.gitignore_global"
+    src: "{{ dotfiles_role_dir }}/gitignore_global"
     dest: "{{ dotfiles_user_home }}/.gitignore_global"
     state: link
     force: yes
 
+- name: Copy gitconfig file
+  template:
+    src: "gitconfig.j2"
+    dest: "{{dotfiles_role_dir}}/gitconfig"
+    mode: 0444
 
-- name: Link global gitconfig file
+- name: Link gitconfig file to dotfile
   file:
-    src: "{{ files_absolute_path }}/.gitconfig"
+    src: "{{ dotfiles_role_dir }}/gitconfig"
     dest: "{{ dotfiles_user_home }}/.gitconfig"
     state: link
     force: yes
-

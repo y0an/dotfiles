@@ -3,3 +3,4 @@
 - hosts: laptop
   roles:
     - git
+    - zsh
