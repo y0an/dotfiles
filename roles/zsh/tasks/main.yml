@@ -1,0 +1,31 @@
+---
+
+- set_fact: dotfiles_role_dir="{{ dotfiles_home }}/{{ role_path | basename }}"
+
+- file: path={{ dotfiles_role_dir }} state=directory mode=0755
+
+- name: Copy zshenv file
+  template:
+    src: "zshenv.j2"
+    dest: "{{ dotfiles_role_dir }}/zshenv" 
+    mode: 0444
+
+- name: Link zshenv file to dotfile
+  file:
+    src: "{{ dotfiles_role_dir }}/zshenv"
+    dest: "{{ dotfiles_user_home }}/.zshenv"
+    state: link
+    force: yes
+
+- name: Copy zshrc file
+  template:
+    src: "zshrc.j2"
+    dest: "{{dotfiles_role_dir}}/zshrc"
+    mode: 0444
+
+- name: Link zshrc file to dotfile
+  file:
+    src: "{{ dotfiles_role_dir }}/zshrc"
+    dest: "{{ dotfiles_user_home }}/.zshrc"
+    state: link
+    force: yes
