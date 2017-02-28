@@ -80,7 +80,9 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
+    local ROCKET_CHAR=$'\uf135\u0020'         # 
+    local LAPTOP_CHAR=$'\uf109\u0020'               # 
+    prompt_segment black default "%(!.%{%F{yellow}%}.)$ROCKET_CHAR$USER$LAPTOP_CHAR%m"
   fi
 }
 
@@ -123,7 +125,10 @@ prompt_git() {
     zstyle ':vcs_info:*' formats ' %u%c'
     zstyle ':vcs_info:*' actionformats ' %u%c'
     vcs_info
-    echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+    
+    local GITHUB_CHAR=$'\uf09b\u0020'               # 
+
+    echo -n "$GITHUB_CHAR${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
   fi
 }
 

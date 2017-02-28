@@ -29,3 +29,16 @@
     dest: "{{ dotfiles_user_home }}/.zshrc"
     state: link
     force: yes
+
+
+- name: Copy oh-my-zsh file
+  copy:
+    src: "oh-my-zsh"
+    dest: "{{ dotfiles_role_dir }}/" 
+
+- name: Link oh-my-zsh file to dotfile
+  file:
+    src: "{{ dotfiles_role_dir }}/oh-my-zsh"
+    dest: "{{ dotfiles_user_home }}/.oh-my-zsh"
+    state: link
+    force: yes
