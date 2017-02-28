@@ -1,0 +1,20 @@
+---
+
+- set_fact: files_absolute_path="{{ role_path }}/files"
+
+
+- name: Link global gitignore file
+  file:
+    src: "{{ files_absolute_path }}/.gitignore_global"
+    dest: "{{ dotfiles_user_home }}/.gitignore_global"
+    state: link
+    force: yes
+
+
+- name: Link global gitconfig file
+  file:
+    src: "{{ files_absolute_path }}/.gitconfig"
+    dest: "{{ dotfiles_user_home }}/.gitconfig"
+    state: link
+    force: yes
+
