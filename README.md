@@ -3,6 +3,6 @@
 Basic ansible role to manage dotfiles.
 
 ### Package needed
- - openssh-server
- - sshpass
+ - feh (wallpaper)
+ - py3status (pip , i3status+click)
 

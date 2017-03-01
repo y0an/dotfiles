@@ -1,6 +1,10 @@
 ---
 
 - hosts: laptop
+  connection: local
   roles:
     - git
     - zsh
+    - oh-my-zsh
+    - i3
+    

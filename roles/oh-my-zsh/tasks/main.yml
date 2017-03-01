@@ -1,0 +1,23 @@
+---
+
+- set_fact: dotfiles_role_dir="{{ dotfiles_home }}/{{ role_path | basename }}"
+
+- file: path={{ dotfiles_role_dir }} state=directory mode=0755
+
+# Example git checkout from Ansible Playbooks
+- name: Cloning oh-my-zsh repo
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: "{{ dotfiles_role_dir }}/"
+
+- name: Copy oh-my-zsh custom files
+  copy:
+    src: "custom"
+    dest: "{{ dotfiles_role_dir }}/" 
+
+- name: Link oh-my-zsh file to dotfile
+  file:
+    src: "{{ dotfiles_role_dir }}/"
+    dest: "{{ dotfiles_user_home }}/.oh-my-zsh"
+    state: link
+    force: yes
