@@ -1,0 +1,32 @@
+---
+
+- set_fact: dotfiles_role_dir="{{ dotfiles_home }}/{{ role_path | basename }}"
+
+- file: path={{ dotfiles_role_dir }} state=directory mode=0755
+
+- name: Copy i3 config file
+  copy:
+    src: "i3.config"
+    dest: "{{ dotfiles_role_dir }}/i3.config" 
+    mode: 0444
+
+- name: Link i3 config file to dotfile
+  file:
+    src: "{{ dotfiles_role_dir }}/i3.config"
+    dest: "{{ dotfiles_user_home }}/.config/i3/config"
+    state: link
+    force: yes
+
+- name: Copy i3status config file
+  copy:
+    src: "i3status.config"
+    dest: "{{ dotfiles_role_dir }}/i3status.config" 
+    mode: 0444
+
+- name: Link i3status config file to dotfile
+  file:
+    src: "{{ dotfiles_role_dir }}/i3status.config"
+    dest: "{{ dotfiles_user_home }}/.config/i3status/config"
+    state: link
+    force: yes
+
