@@ -4,6 +4,9 @@
 
 - file: path={{ dotfiles_role_dir }} state=directory mode=0755
 
+- file: path="{{ dotfiles_user_home }}/.config/i3/" state=directory mode=0755
+- file: path="{{ dotfiles_user_home }}/.config/i3status/" state=directory mode=0755
+
 - name: Copy i3 config file
   copy:
     src: "i3.config"
