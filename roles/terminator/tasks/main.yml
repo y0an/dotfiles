@@ -1,0 +1,18 @@
+---
+
+- set_fact: dotfiles_role_dir="{{ dotfiles_home }}/{{ role_path | basename }}"
+
+- file: path={{ dotfiles_role_dir }} state=directory mode=0755
+
+- name: Copy terminator config file
+  copy:
+    src: "terminator.config"
+    dest: "{{ dotfiles_role_dir }}/terminator.config"
+    #mode: 0444 
+
+- name: Link terminator config file to dotfile
+  file:
+    src: "{{ dotfiles_role_dir }}/terminator.config"
+    dest: "{{ dotfiles_user_home }}/.config/terminator/config"
+    state: link
+    force: yes
