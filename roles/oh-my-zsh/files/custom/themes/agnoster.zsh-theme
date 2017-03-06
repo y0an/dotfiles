@@ -80,9 +80,10 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    local ROCKET_CHAR='' 
+    local ROCKET_CHAR=' '
     local LAPTOP_CHAR=' '
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$LAPTOP_CHAR$USER@%m$ROCKET_CHAR"
+    prompt_segment black default "%(!.%{%F{yellow}%}.)$ROCKET_CHAR$USER@%m"
+    #prompt_segment default "%(!.%{%F{yellow}%}$ROCKET_CHAR$USER@%m"
   fi
 }
 
