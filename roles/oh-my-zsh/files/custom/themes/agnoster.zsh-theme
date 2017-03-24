@@ -80,9 +80,8 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    local ROCKET_CHAR=' '
     local LAPTOP_CHAR=' '
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$ROCKET_CHAR$USER@%m"
+    prompt_segment black default "%(!.%{%F{yellow}%}.)$LAPTOP_CHAR$USER@%m"
     #prompt_segment default "%(!.%{%F{yellow}%}$ROCKET_CHAR$USER@%m"
   fi
 }
@@ -218,10 +217,29 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 
+prompt_docker() {
+  local docker
+  docker=()
+  if [[ $(docker ps -q | wc -l) -gt 0 ]]; then
+    local DOCKER_CHAR='Docker '
+    docker+="%{%F{blue}%} $(docker ps -q | wc -l) $DOCKER_CHAR"
+  fi
+  [[ -n "$docker" ]] && prompt_segment black default "$docker"
+}
+
+prompt_rkt() {
+  local ROCKET_CHAR=' '
+  local rocket
+  rocket=()
+  rocket+="%{%F{red}%} No $ROCKET_CHAR "
+  prompt_segment black default "$rocket"
+}
 ## Main prompt
 build_prompt() {
   RETVAL=$?
   prompt_status
+  prompt_docker
+  prompt_rkt
   prompt_virtualenv
   prompt_context
   prompt_dir

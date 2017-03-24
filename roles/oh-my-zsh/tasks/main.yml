@@ -4,7 +4,6 @@
 
 - file: path={{ dotfiles_role_dir }} state=directory mode=0755
 
-# Example git checkout from Ansible Playbooks
 - name: Cloning oh-my-zsh repo
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
@@ -15,9 +14,15 @@
     src: "custom"
     dest: "{{ dotfiles_role_dir }}/" 
 
+- name: Cloning zsh-completions repo
+  git:
+    repo: https://github.com/zsh-users/zsh-completions.git
+    dest: "{{ dotfiles_role_dir }}/custom/plugins/zsh-completions/"
+
 - name: Link oh-my-zsh file to dotfile
   file:
     src: "{{ dotfiles_role_dir }}/"
     dest: "{{ dotfiles_user_home }}/.oh-my-zsh"
     state: link
     force: yes
+

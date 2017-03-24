@@ -12,10 +12,13 @@ ZSH_THEME="agnoster"
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 
-source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
+plugins=(zsh-completions git)
+
+source $ZSH/oh-my-zsh.sh
+
+autoload -U compinit && compinit
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
