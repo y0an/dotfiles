@@ -231,8 +231,11 @@ prompt_rkt() {
   local ROCKET_CHAR=' '
   local rocket
   rocket=()
-  rocket+="%{%F{red}%} No $ROCKET_CHAR "
-  prompt_segment black default "$rocket"
+  if [[ $(rkt list --no-legend | grep running  | wc -l) -gt 0 ]]; then
+    local DOCKER_CHAR='Docker '
+    rocket+="%{%F{blue}%} $(rkt list --no-legend | grep running  | wc -l) $ROCKET_CHAR "
+  fi
+  [[ -n "$rocket" ]] && prompt_segment black default "$rocket"
 }
 ## Main prompt
 build_prompt() {
