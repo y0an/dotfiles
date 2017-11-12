@@ -81,7 +81,7 @@ prompt_end() {
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     local LAPTOP_CHAR=' '
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$LAPTOP_CHAR$USER@%m"
+    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
     #prompt_segment default "%(!.%{%F{yellow}%}$ROCKET_CHAR$USER@%m"
   fi
 }
@@ -92,7 +92,7 @@ prompt_git() {
   local PL_BRANCH_CHAR
   () {
     local LC_ALL="" LC_CTYPE="en_US.UTF-8"
-    PL_BRANCH_CHAR=$'\ue0a0'         # 
+    PL_BRANCH_CHAR=$''         #  \ue0a0
   }
   local ref dirty mode repo_path
   repo_path=$(git rev-parse --git-dir 2>/dev/null)
@@ -221,7 +221,7 @@ prompt_docker() {
   local docker
   docker=()
   if [[ $(docker ps -q | wc -l) -gt 0 ]]; then
-    local DOCKER_CHAR='Docker '
+    local DOCKER_CHAR='D '
     docker+="%{%F{blue}%} $(docker ps -q | wc -l) $DOCKER_CHAR"
   fi
   [[ -n "$docker" ]] && prompt_segment black default "$docker"
