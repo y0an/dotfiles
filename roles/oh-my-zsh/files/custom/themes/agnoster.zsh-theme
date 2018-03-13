@@ -80,9 +80,8 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    local LAPTOP_CHAR=' '
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
-    #prompt_segment default "%(!.%{%F{yellow}%}$ROCKET_CHAR$USER@%m"
+    local LAPTOP_CHAR=' '
+    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m$LAPTOP_CHAR"
   fi
 }
 
@@ -237,14 +236,24 @@ prompt_rkt() {
   fi
   [[ -n "$rocket" ]] && prompt_segment black default "$rocket"
 }
+
+get_space () {
+  local STR=$1$2
+  local zero='%([BSUbfksu]|([FB]|){*})'
+  local LENGTH=${#${(S%%)STR//$~zero/}}
+  local SPACES=""
+  (( LENGTH = ${COLUMNS} - $LENGTH - 1))
+
+  for i in {0..$LENGTH}
+    do
+      SPACES="$SPACES "
+    done
+
+  return $SPACES
+}
+
 ## Main prompt
-build_prompt() {
-  RETVAL=$?
-  prompt_status
-  prompt_docker
-  prompt_rkt
-  prompt_virtualenv
-  prompt_context
+build_header() {
   prompt_dir
   prompt_git
   prompt_bzr
@@ -252,4 +261,22 @@ build_prompt() {
   prompt_end
 }
 
-PROMPT='%{%f%b%k%}$(build_prompt) '
+build_header_right() {
+  
+}
+
+build_prompt() {
+  RETVAL=$?
+  prompt_status
+  prompt_virtualenv
+  prompt_docker
+  prompt_context
+  prompt_end
+}
+
+bureau_spaces() {
+  prompt_segment black default `get_space $(build_header) $(build_header_right)`
+}
+
+PROMPT='%{%f%b%k%}$(build_header)
+$(build_prompt) '

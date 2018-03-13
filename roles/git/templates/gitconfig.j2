@@ -2,71 +2,72 @@
 # {{ generated_file }}
 
 [alias]
-    lol = log --abbrev-commit --graph --all --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\"
-    ls = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate
-    ll = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate --numstat
-    lds = log --color --graph --pretty=format:'%Cred%h% %ad%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate --date=short
-	
-    st = status
-    co = checkout
-    #Creer une nouvelle branche et switch dessus
-    cob = checkout -b
-    ci = commit
-    ca = commit -a
-    br = branch
-    #affiche toutes les branches (locales et disantes)
-    bra = branch -a
-    #affiche les branches distantes
-    brr = branch -r
-    lg = log --pretty=format:'%h - %ar - %an - %s %C(bold red)%N%Creset%C(bold green)%d%Creset' --topo-order --graph
-    #lga affiche le message de commit en entier
-    lga = log --pretty=format:'%h - %ar - %an - %s %b %C(bold red)%N%Creset%C(bold green)%d%Creset' --topo-order --graph
-    #lgn affiche les logs avec les notes s'il y en a
-    lgn = log --pretty=format:'%h - %ar - %an - %s %C(bold red)%N%Creset%C(bold green)%d%Creset' --topo-order --graph --no-merges
-    #lgna affiche les logs avec message en entier + notes
-    lgna = log --pretty=format:'%h - %ar - %an - %s %b %C(bold red)%N%Creset%C(bold green)%d%Creset' --topo-order --graph --no-merges
-    #permet de pousser une nouvelle branche sur le repo distant et de lier la branche locale a la branche distante
-    puu = push -u
-    fa = fetch --all
-    rh = reset --hard
-    #merge une branche sur la branche courante en la rebasant au prealable avec celle-ci
-    mm = !sh -c 'CUR_BRA=$(cat .git/HEAD | cut -d/ -f3) && git pull && git checkout "${1}" && git rebase ${CUR_BRA} && git checkout "${CUR_BRA}" && git merge --no-ff "${1}"' -
-    mnf = merge --no-ff    
-    mnfc = merge --no-ff --no-commit
-    #prepare une branche hotfix a partir de la master                                                                                                                                                     
-    hot = "!sh -c 'git co master && git pull && [ $(git branch | grep -c hotfix) -eq "0" ] && git branch hotfix; git co hotfix && git rebase master'"
-    #raccourci stash
-    ssave = stash save
-    spop = stash pop
-    slist = stash list
-    sapply = stash apply
-    #affiche les parents d'un commit
-    parents = cat-file commit
-    #liste les tags avec leur annotations
-    ltag = tag -l -n10
-    #lance le mergetool
-    mt = mergetool
+  lol = log --abbrev-commit --graph --all --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\"
+  ls = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate
+  ll = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate --numstat
+  lds = log --color --graph --pretty=format:'%Cred%h% %ad%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) <%an>%Creset' --abbrev-commit --decorate --date=short
+
+  st = status
+  co = checkout
+  #Creer une nouvelle branche et switch dessus
+  cob = checkout -b
+  ci = commit
+  ca = commit -a
+  br = branch
+  #affiche toutes les branches (locales et disantes)
+  bra = branch -a
+  #affiche les branches distantes
+  brr = branch -r
+  lg = log --pretty=format:'%h - %ar - %an - %s %C(bold red)%N%Creset%C(bold green)%d%Creset' --topo-order --graph
+  #lga affiche le message de commit en entier
+  lga = log --pretty=format:'%h - %ar - %an - %s %b %C(bold red)%N%Creset%C(bold green)%d%Creset' --topo-order --graph
+  #lgn affiche les logs avec les notes s'il y en a
+  lgn = log --pretty=format:'%h - %ar - %an - %s %C(bold red)%N%Creset%C(bold green)%d%Creset' --topo-order --graph --no-merges
+  #lgna affiche les logs avec message en entier + notes
+  lgna = log --pretty=format:'%h - %ar - %an - %s %b %C(bold red)%N%Creset%C(bold green)%d%Creset' --topo-order --graph --no-merges
+  #permet de pousser une nouvelle branche sur le repo distant et de lier la branche locale a la branche distante
+  puu = push -u
+  fa = fetch --all
+  rh = reset --hard
+  #merge une branche sur la branche courante en la rebasant au prealable avec celle-ci
+  mm = !sh -c 'CUR_BRA=$(cat .git/HEAD | cut -d/ -f3) && git pull && git checkout "${1}" && git rebase ${CUR_BRA} && git checkout "${CUR_BRA}" && git merge --no-ff "${1}"' -
+  mnf = merge --no-ff  
+  mnfc = merge --no-ff --no-commit
+  #prepare une branche hotfix a partir de la master
+  hot = "!sh -c 'git co master && git pull && [ $(git branch | grep -c hotfix) -eq "0" ] && git branch hotfix; git co hotfix && git rebase master'"
+  #raccourci stash
+  ssave = stash save
+  spop = stash pop
+  slist = stash list
+  sapply = stash apply
+  #affiche les parents d'un commit
+  parents = cat-file commit
+  #liste les tags avec leur annotations
+  ltag = tag -l -n10
+  #lance le mergetool
+  mt = mergetool
 [color]
-    ui = true
+  ui = true
 [push]
-    #par defaut git push pousse toutes les branches.
-    #cela permet de ne pousser que la branche courante
-    default = upstream
+  #par defaut git push pousse toutes les branches.
+  #cela permet de ne pousser que la branche courante
+  default = upstream
 [branch]
-    #Lors d'un git pull, utilise un rebase plutot qu'un merge
-    #cela evite de polluer l'historique avec des commits de merge entre les branches locales et les branches distantes
-    autosetuprebase = always
+  #Lors d'un git pull, utilise un rebase plutot qu'un merge
+  #cela evite de polluer l'historique avec des commits de merge entre les branches locales et les branches distantes
+  autosetuprebase = always
 [core]
-    excludesfile = ~/.gitignore_global
-    editor = vim
-[github]
-    user = {{ git_user }}
-[user]
-    name = {{ full_name }}
-    email = {{ git_email }}
+  excludesfile = ~/.gitignore_global
+  editor = vim
 [credential]
-    helper = cache --timeout=3600
+  helper = cache --timeout=3600
 [merge]
-	tool = meld
+  tool = meld
 [diff]
-	guitool = meld
+  guitool = meld
+[includeIf "gitdir:~/git/rocher/"]
+  path = .gitconfig-rocher
+[includeIf "gitdir:~/git/github/"]
+  path = .gitconfig-github
+[includeIf "gitdir:~/git/rectorat/"]
+  path = .gitconfig-github

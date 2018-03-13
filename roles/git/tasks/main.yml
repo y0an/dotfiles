@@ -4,6 +4,13 @@
 
 - file: path={{ dotfiles_role_dir }} state=directory mode=0755
 
+- name: Installation of git
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - git
+
 - name: Copy gitignore_global file
   template:
     src: "gitignore_global.j2"
@@ -27,5 +34,31 @@
   file:
     src: "{{ dotfiles_role_dir }}/gitconfig"
     dest: "{{ dotfiles_user_home }}/.gitconfig"
+    state: link
+    force: yes
+
+- name: Copy gitconfig Rocher file
+  template:
+    src: "gitconfig-rocher.j2"
+    dest: "{{dotfiles_role_dir}}/gitconfig-rocher"
+    mode: 0444
+
+- name: Link gitconfig Rocher file to dotfile
+  file:
+    src: "{{ dotfiles_role_dir }}/gitconfig-rocher"
+    dest: "{{ dotfiles_user_home }}/.gitconfig-rocher"
+    state: link
+    force: yes
+
+- name: Copy gitconfig github file
+  template:
+    src: "gitconfig-github.j2"
+    dest: "{{dotfiles_role_dir}}/gitconfig-github"
+    mode: 0444
+
+- name: Link gitconfig github file to dotfile
+  file:
+    src: "{{ dotfiles_role_dir }}/gitconfig-github"
+    dest: "{{ dotfiles_user_home }}/.gitconfig-github"
     state: link
     force: yes

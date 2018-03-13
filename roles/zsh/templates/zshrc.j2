@@ -2,7 +2,7 @@
 # {{ generated_file }}
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/{{ ansible_user_id }}/.oh-my-zsh
+export ZSH=/home/{{ ansible_user }}/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -14,11 +14,15 @@ ZSH_THEME="agnoster"
 
 # User configuration
 
-plugins=(zsh-completions git docker docker-compose aws)
+plugins=(zsh-completions)
+plugins+=(git)
+plugins+=(docker) 
+#plugins+=(docker-compose)
+#plugins+=(aws)
+plugins+=(kubectl)
+#plugins+=(docker-machine)
 
-plugins+=(docker-machine)
-
-source $ZSH/oh-my-zsh.sh
+source {{ dotfiles_user_home }}/.oh-my-zsh/oh-my-zsh.sh
 
 autoload -U compinit && compinit
 
@@ -26,14 +30,14 @@ autoload -U compinit && compinit
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 #GO conf
-export GOPATH=$HOME/gowork
+#export GOPATH=$HOME/gowork
 
-export PATH=$PATH:/usr/local/go/bin
+#export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/bin
 
-alias wuzz="$GOPATH/bin/wuzz"
-alias sudoenv="sudo env PATH=$PATH"
-alias srkt="sudoenv rkt"
+#alias wuzz="$GOPATH/bin/wuzz"
+#alias sudoenv="sudo env PATH=$PATH"
+#alias srkt="sudoenv rkt"
 
 alias docker-swarm="docker --tlsverify -H=yrfrlx220.fr.yvesrocher.com:2376"
 
@@ -53,8 +57,11 @@ export PATH=$PATH:$JAVA_HOME/bin
 
 
 #ACBUILD conf
-export ACBUILD_BIN_DIR=~/git/acbuild/bin
+#export ACBUILD_BIN_DIR=~/git/acbuild/bin
 
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+#[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+
+neofetch

@@ -4,6 +4,13 @@
 
 - file: path={{ dotfiles_role_dir }} state=directory mode=0755
 
+- name: Installation of terminator
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - terminator
+
 - name: Copy terminator config file
   copy:
     src: "terminator.config"

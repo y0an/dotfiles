@@ -11,3 +11,7 @@
 
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
+
+alias k="kubectl"
+
+alias mvn='docker run -it --rm --name my-maven-project -v ~/.m2:/root/.m2 -v "$PWD":/usr/src/mymaven -w /usr/src/mymaven maven:3.5-jdk-8-alpine mvn'

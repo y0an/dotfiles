@@ -1,0 +1,19 @@
+---
+
+- set_fact: dotfiles_role_dir="{{ dotfiles_home }}/{{ role_path | basename }}"
+
+- file: path="{{ dotfiles_role_dir }}" state=directory mode=0755
+- file: path="{{ dotfiles_user_home }}/.config/rofi/" state=directory mode=0755
+
+- name: Copy rofi config file
+  copy:
+    src: "rofi.config"
+    dest: "{{ dotfiles_role_dir }}/rofi.config"
+    mode: 0444 
+
+- name: Link rofi config file to dotfile
+  file:
+    src: "{{ dotfiles_role_dir }}/rofi.config"
+    dest: "{{ dotfiles_user_home }}/.config/rofi/config"
+    state: link
+    force: yes

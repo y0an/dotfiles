@@ -1,0 +1,33 @@
+---
+# Add vscode repo
+- apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+    state: present
+    filename: 'vscode'
+- apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+
+- name: Installation des packages de base.
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - neofetch
+    - python3-dev
+    - python3-pip
+    - python-dev
+    - python-pip
+    - python-jmespath
+    - feh
+    - htop
+    - gitk
+    - dnsutils
+    - dstat
+    - code-insiders
+
+- pip:
+    name: thefuck
+    executable: pip3
+

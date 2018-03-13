@@ -7,6 +7,9 @@
 - file: path="{{ dotfiles_user_home }}/.config/i3/" state=directory mode=0755
 - file: path="{{ dotfiles_user_home }}/.config/i3status/" state=directory mode=0755
 
+- file: path="{{ dotfiles_user_home }}/.config/compton/" state=directory mode=0755
+
+
 - name: Copy i3 config file
   copy:
     src: "i3.config"
@@ -17,6 +20,19 @@
   file:
     src: "{{ dotfiles_role_dir }}/i3.config"
     dest: "{{ dotfiles_user_home }}/.config/i3/config"
+    state: link
+    force: yes
+
+- name: Copy compton config file
+  copy:
+    src: "compton.conf"
+    dest: "{{ dotfiles_role_dir }}/compton.conf" 
+    mode: 0444
+
+- name: Link compton config file to dotfile
+  file:
+    src: "{{ dotfiles_role_dir }}/compton.conf"
+    dest: "{{ dotfiles_user_home }}/.config/compton.conf"
     state: link
     force: yes
 
@@ -33,3 +49,24 @@
     state: link
     force: yes
 
+- name: Installation de package necessaire pour i3status.
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - libconfuse-dev
+    - libyajl-dev
+    - libasound2-dev
+    - libiw-dev
+    - libcap2-bin
+    - libpulse-dev
+    - libnl-genl-3-dev
+    - xbacklight
+    - lm-sensors
+    - compton
+
+#need install de i3status avant et les dep
+- name: Installation of py3status
+  pip:
+    name: py3status
+    executable: pip3

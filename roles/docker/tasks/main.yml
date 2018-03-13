@@ -1,0 +1,46 @@
+---
+
+
+- name: Remove old docker package
+  apt:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-engine
+    - docker.io
+
+- name: Installation of docker prereq
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg2
+    - software-properties-common
+
+- apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+    state: present
+
+- apt:
+    update_cache: yes
+
+- name: Installation of docker
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - docker-ce
+
+- name: Adding existing user '{{ ansible_user }}' to group sudo
+  user: 
+    name: '{{ ansible_user }}'
+    groups: docker
+    append: yes

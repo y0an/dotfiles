@@ -1,0 +1,27 @@
+---
+
+# https://linuxconfig.org/how-to-install-latest-firefox-browser-on-debian-9-stretch-linux
+
+
+#- name: Download file from a file path
+#  get_url:
+#    url: 
+#    dest: /tmp/FirefoxSetup.tar.bz2
+#
+#- name: Create firefox opt folder
+#  file:
+#    path: /opt/firefox
+#    state: directory
+#    mode: 0755
+
+- name: Unarchive a firefox bin
+  unarchive:
+    src: https://download.mozilla.org/?product=firefox-latest&os=linux64
+    dest: /opt/
+    remote_src: yes
+
+- file:
+    src: /opt/firefox/firefox
+    dest: /usr/local/bin/firefox
+    state: link
+

@@ -1,0 +1,8 @@
+---
+
+- name: Installation de Rofi.
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - rofi

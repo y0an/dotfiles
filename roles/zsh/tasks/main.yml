@@ -4,6 +4,13 @@
 
 - file: path={{ dotfiles_role_dir }} state=directory mode=0755
 
+- name: Installation of zsh
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - zsh
+
 - name: Copy zshenv file
   template:
     src: "zshenv.j2"
